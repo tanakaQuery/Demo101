@@ -1,0 +1,55 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	text-align: center;
+	background-color: #F3EAC2;
+}
+
+hr {
+	border-top: 1px solid #bbb;
+	border-bottom: 1px solid #fff;
+}
+
+img {
+	display: inline-block;
+	width: 300px;
+	height: 200px;
+}
+
+h1 {
+	font-size: 50px;
+}
+
+.button {
+	border: none;
+	padding: 15px 32px;
+	text-align: center;
+	text-decoration: none;
+	display: inline-block;
+	font-size: 50px;
+	margin: 100px 100px;
+	cursor: pointer;
+	background-color: #EC524B;
+}
+
+.mainHtml {
+	color: white;
+}
+
+
+.thread {
+	position: relative;
+	background-color: #9AD3BC;
+	display: inline-block;
+	width: 700px;
+	text-align: left;
+}
+
+.thred-text {
+	position: relative;
+	display: inline-block;
+	font-size: 30px;
+	vertical-align: top;
+	width: 200px;
+}
