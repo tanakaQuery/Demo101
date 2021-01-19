@@ -11,19 +11,19 @@ import javax.servlet.http.HttpServletResponse;
 
 import model.SellerLogin;
 
-
 /**
- * Servlet implementation class sellerDataController
+ * Servlet implementation class BuyerDataController
  */
-@WebServlet("/sellerDataController")
-public class sellerDataController extends HttpServlet {
+@WebServlet("/BuyerDataController")
+public class BuyerDataController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public sellerDataController() {
+    public BuyerDataController() {
         super();
+        // TODO Auto-generated constructor stub
     }
 
 	/**
@@ -35,17 +35,18 @@ public class sellerDataController extends HttpServlet {
     	String page = request.getParameter("page");
 
     	if (page.equals("login")) {
-    		forwardPath = "./view/sellingLogin.jsp";
+    		forwardPath = "./view/buyingLogin.jsp";
     	} else if (page.equals("new")) {
-    		forwardPath = "./view/sellingNewAccount.jsp";
+    		forwardPath = "./view/buyingNewAccount.jsp";
     	} else if (page.equals("start")) {
-    		forwardPath = "./view/sellingStart.jsp";
+    		forwardPath = "./view/buyingStart.jsp";
+    	} else if (page.equals("guest")) {
+    		forwardPath = "./view/buyingHome.jsp";
     	}
 
     	RequestDispatcher rd = request.getRequestDispatcher(forwardPath);
 		rd.forward(request, response);
 	}
-
 	/**
 	 * @see HttpServlet#doPost(HttpServletRequest request, HttpServletResponse response)
 	 */
@@ -61,18 +62,18 @@ public class sellerDataController extends HttpServlet {
 		if (action.equals("LOGIN")) {
 
 			if (login.execute(request, true) == true) {
-				forwardPath = "./view/sellingMyPage.jsp";
+				forwardPath = "./view/buyingHoume.jsp";
 			} else {
-				forwardPath = "./view/sellingStart.jsp";
+				forwardPath = "./view/buyingStart.jsp";
 				System.out.println("ログインエラー");
 			}
 
 		} else if (action.equals("NEW")) {
 
 			if (login.execute(request, false) == true) {
-				forwardPath = "./view/sellingMyPage.jsp";
+				forwardPath = "./view/buyingHoume.jsp";
 			} else {
-				forwardPath = "./view/sellingStart.jsp";
+				forwardPath = "./view/buyingStart.jsp";
 				System.out.println("新規登録エラー");
 			}
 		} else {

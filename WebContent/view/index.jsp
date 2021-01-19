@@ -15,7 +15,7 @@
 	<hr>
 	<div>
 		<button class="button mainHtml" onclick="location.href='<%=request.getContextPath()%>/sellerDataController?page=start'">売りたい方</button>
-		<button class="button mainHtml" onclick="location.href='sellingStart.jsp'">買いたい方</button>
+		<button class="button mainHtml" onclick="location.href='<%=request.getContextPath()%>/BuyerDataController?page=start'">買いたい方</button>
 	</div>
 <hr>
 </body>

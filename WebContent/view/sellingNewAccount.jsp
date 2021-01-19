@@ -12,7 +12,7 @@
 <jsp:include page="subViews/header.jsp"></jsp:include>
 <h1>新規登録画面</h1>
 	<hr>
-	<div class="pen">
+	<div>
 		<form action="<%=request.getContextPath()%>/sellerDataController"
 			method="post">
 			<input type="hidden" name="ACTION" value="NEW">

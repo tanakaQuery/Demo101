@@ -3,19 +3,19 @@ package model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
-/**
- * Servlet implementation class sellerInfoDAO
- */
 
-public class SellerInfoDAO {
+/**
+ * Servlet implementation class BuyerInfoDAO
+ */
+public class BuyerInfoDAO {
 	private DBConnection db;
 
-	public SellerInfoDAO(DBConnection db) {
+	public BuyerInfoDAO(DBConnection db) {
 		this.db = db;
 	}
 
 	public void update(String name, String houseID) throws Exception {
-		String sql = "UPDATE sellers SET houseID = ? WHERE name = ?";
+		String sql = "UPDATE buyers SET houseID = ? WHERE name = ?";
 		Connection con = db.getConnect();
 
 		PreparedStatement stmt = con.prepareStatement(sql);
@@ -24,11 +24,11 @@ public class SellerInfoDAO {
 
 		int count = stmt.executeUpdate();
 
-		System.out.println(count + "件の売り別荘情報を更新しました。");
+		System.out.println(count + "件の購入別荘情報を更新しました。");
 	}
 
 	public void make(String name, String password) throws Exception {
-		String sql = "INSERT INTO sellers VALUES(?, ?, ?)";
+		String sql = "INSERT INTO buyers VALUES(?, ?, ?)";
 		Connection con = db.getConnect();
 
 		PreparedStatement stmt = con.prepareStatement(sql);
@@ -38,12 +38,12 @@ public class SellerInfoDAO {
 
 		int count = stmt.executeUpdate();
 
-		System.out.println(count + "件の売主アカウントを作成しました。");
+		System.out.println(count + "件の購入者アカウントを作成しました。");
 	}
 
-	public SellerInfo find(String name) throws Exception {
-		SellerInfo seller = null;
-		String sql = "SELECT name, password, houseID FROM sellers WHERE name = ?";
+	public BuyerInfo find(String name) throws Exception {
+		BuyerInfo buyer = null;
+		String sql = "SELECT name, password, houseID FROM buyers WHERE name = ?";
 		Connection con = db.getConnect();
 
 		PreparedStatement stmt = con.prepareStatement(sql);
@@ -52,13 +52,12 @@ public class SellerInfoDAO {
 		ResultSet rs = stmt.executeQuery();
 
 		if (rs.next()) {
-			String sellerName = rs.getString("name");
+			String buyerName = rs.getString("name");
 			String password = rs.getString("password");
 			String houseID = rs.getString("houseID");
 
-			seller = new SellerInfo(sellerName, password, houseID);
+			buyer = new BuyerInfo(buyerName, password, houseID);
 		}
-
-		return seller;
+		return buyer;
 	}
 }

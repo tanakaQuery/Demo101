@@ -1,10 +1,10 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
-<%@ page import="model.SellerInfo" %>
+<%@ page import="model.BuyerInfo" %>
 <%
-SellerInfo seller = (SellerInfo)session.getAttribute("seller");
+BuyerInfo buyer = (BuyerInfo)session.getAttribute("buyer");
 Boolean pageMode = true;
-if (seller.getSellingHouseID() != null) {
+if (buyer != null) {
 	pageMode = true;
 } else {
 	pageMode = false;
@@ -18,17 +18,16 @@ if (seller.getSellingHouseID() != null) {
 <link rel="stylesheet" href="./view/css/mainStyles.css">
 <link rel="stylesheet" href="./view/css/headerFooterStyles.css">
 </head>
-
 <body>
 <jsp:include page="subViews/header.jsp"></jsp:include>
-<h1><%=seller.getName() %>様のマイページ</h1><br>
 <hr>
 <% if (pageMode) {%>
- <p> <%= seller.getSellingHouseID() %> 売り出し中</p>
-
+ <h1><%=buyer.getName() %>様のマイページ</h1><br>
 <% } else { %>
-<p> 新規物件登録</p>
+<p> ゲスト様ページ</p>
 <% } %>
+
+
 
 </body>
 </html>

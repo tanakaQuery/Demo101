@@ -9,11 +9,10 @@
 <link rel="stylesheet" href="./view/css/headerFooterStyles.css">
 </head>
 <body>
-<jsp:include page="subViews/header.jsp"></jsp:include>
 <h1>ログイン画面</h1>
 	<hr>
 	<div>
-		<form action="<%=request.getContextPath()%>/sellerDataController"
+		<form action="<%=request.getContextPath()%>/BuyerDataController"
 			method="post">
 			<input type="hidden" name="ACTION" value="LOGIN">
 			ユーザ名  ：<input type="text" name="ID"><br><br>
@@ -23,7 +22,6 @@
 		</form>
 	</div>
 	<hr>
-	<a href="<%=request.getContextPath()%>/sellerDataController?page=start">戻る</a>
-
+	<a href="<%=request.getContextPath()%>/BuyerDataController?page=start">戻る</a>
 </body>
 </html>
