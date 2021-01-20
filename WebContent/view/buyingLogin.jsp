@@ -9,6 +9,7 @@
 <link rel="stylesheet" href="./view/css/headerFooterStyles.css">
 </head>
 <body>
+<jsp:include page="subViews/header.jsp"></jsp:include>
 <h1>ログイン画面</h1>
 	<hr>
 	<div>

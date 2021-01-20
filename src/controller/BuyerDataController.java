@@ -1,6 +1,7 @@
 package controller;
 
 import java.io.IOException;
+import java.util.ArrayList;
 
 import javax.servlet.RequestDispatcher;
 import javax.servlet.ServletException;
@@ -11,6 +12,7 @@ import javax.servlet.http.HttpServletResponse;
 import javax.servlet.http.HttpSession;
 
 import model.BuyerLogin;
+import model.SoldHouseInfo;
 
 /**
  * Servlet implementation class BuyerDataController
@@ -51,6 +53,25 @@ public class BuyerDataController extends HttpServlet {
     		BuyerLogin login = new BuyerLogin();
     		login.fetchHouseData(request);
     		forwardPath = "./view/buyingHome.jsp";
+    	} else if (page.equals("detail")) {
+    		String id = request.getParameter("id");
+    		HttpSession session = request.getSession(true);
+    		ArrayList<SoldHouseInfo> houseArray = (ArrayList<SoldHouseInfo>)session.getAttribute("houseArray");
+    		SoldHouseInfo pickedHouse = null;
+    		for (SoldHouseInfo house : houseArray) {
+    			String pickedHouseID = String.valueOf(house.getId());
+    			if (pickedHouseID.equals(id)) {
+    				pickedHouse = house;
+    			}
+    			session.setAttribute("houseDetail", pickedHouse);
+    		}
+
+    		if (pickedHouse != null) {
+    			forwardPath = "./view/buyingHouseDetail.jsp";
+    		} else {
+    			forwardPath = "./view/buyingHome.jsp";
+    		}
+
     	} else if (page.equals("logout")) {
     		HttpSession session = request.getSession(false);
 
@@ -58,6 +79,8 @@ public class BuyerDataController extends HttpServlet {
     			session.invalidate();
     		}
     		forwardPath =  "./view/buyingStart.jsp";
+    	} else if (page.equals("home")){
+    		forwardPath = "./view/buyingHome.jsp";
     	} else {
     		forwardPath =  "./view/buyingStart.jsp";
     	}
@@ -95,6 +118,13 @@ public class BuyerDataController extends HttpServlet {
 			} else {
 				forwardPath = "./view/buyingStart.jsp";
 				System.out.println("新規登録エラー");
+			}
+		} else if (action.equals("BUY")) {
+			if (login.setHouseID(request) == true) {
+				forwardPath = "./view/buyingHome.jsp";
+			} else {
+				forwardPath = "./view/buyingHome.jsp";
+				System.out.println("購入検討依頼エラー");
 			}
 		} else {
 			System.out.println("ページ移行エラー");

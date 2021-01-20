@@ -11,6 +11,43 @@ import javax.servlet.http.HttpSession;
  */
 public class BuyerLogin {
 
+	public boolean setHouseID(HttpServletRequest request) {
+		boolean state = false;
+
+		DBConnection db = new DBConnection();
+
+		HttpSession session = request.getSession(true);
+		BuyerInfo buyer = (BuyerInfo)session.getAttribute("buyer");
+		SoldHouseInfo pickedHouse = (SoldHouseInfo)session.getAttribute("houseDetail");
+
+		try {
+			BuyerInfoDAO buyerDAO = new BuyerInfoDAO(db);
+
+			if (buyer != null) {
+				String loginName = buyer.getName();
+				int pickedHouseID = pickedHouse.getId();
+				buyerDAO.update(loginName, pickedHouseID);
+
+				buyer.setBoughtHouseID(pickedHouseID);
+				session.setAttribute("buyer", buyer);
+				state = true;
+			} else {
+				state = false;
+			}
+
+		} catch (Exception e) {
+			state = false;
+		} finally {
+			try {
+				db.closeConnect();
+			} catch (Exception e) {
+				state = false;
+			}
+		}
+
+		return state;
+	}
+
 	public boolean fetchHouseData(HttpServletRequest request) {
 		boolean state = false;
 

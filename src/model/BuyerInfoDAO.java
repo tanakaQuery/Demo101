@@ -3,6 +3,7 @@ package model;
 import java.sql.Connection;
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.util.ArrayList;
 
 /**
  * Servlet implementation class BuyerInfoDAO
@@ -12,6 +13,29 @@ public class BuyerInfoDAO {
 
 	public BuyerInfoDAO(DBConnection db) {
 		this.db = db;
+	}
+
+	public ArrayList<BuyerInfo> findBuyerName(int id) throws Exception {
+		ArrayList<BuyerInfo> buyerArray = new ArrayList<BuyerInfo>();
+		String sql = "SELECT name, password, houseID FROM buyers WHERE houseID = ?";
+		Connection con = db.getConnect();
+
+		PreparedStatement stmt = con.prepareStatement(sql);
+		stmt.setInt(1, id);
+
+		ResultSet rs = stmt.executeQuery();
+
+		if (rs.next()) {
+			String buyerName = rs.getString("name");
+			String password = rs.getString("password");
+			int houseID = rs.getInt("houseID");
+
+			BuyerInfo buyer = new BuyerInfo(buyerName, password, houseID);
+
+			buyerArray.add(buyer);
+		}
+
+		return buyerArray;
 	}
 
 	public void update(String name, int houseID) throws Exception {

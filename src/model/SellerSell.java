@@ -1,5 +1,7 @@
 package model;
 
+import java.util.ArrayList;
+
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpSession;
 
@@ -63,10 +65,13 @@ public class SellerSell {
 
 		try {
 			HouseInfoDAO houseDAO = new HouseInfoDAO(db);
+			BuyerInfoDAO buyerDAO = new BuyerInfoDAO(db);
 
 			SoldHouseInfo house = houseDAO.findFromID(houseID);
+			ArrayList<BuyerInfo> buyerArray = buyerDAO.findBuyerName(houseID);
 
 			session.setAttribute("house", house);
+			session.setAttribute("buyerArray", buyerArray);
 
 			state = true;
 
