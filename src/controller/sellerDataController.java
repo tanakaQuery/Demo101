@@ -8,8 +8,11 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
+import model.SellerInfo;
 import model.SellerLogin;
+import model.SellerSell;
 
 
 /**
@@ -40,6 +43,17 @@ public class sellerDataController extends HttpServlet {
     		forwardPath = "./view/sellingNewAccount.jsp";
     	} else if (page.equals("start")) {
     		forwardPath = "./view/sellingStart.jsp";
+    	} else if (page.equals("mypage")) {
+    		forwardPath = "./view/sellingMyPage.jsp";
+    	} else if (page.equals("logout")) {
+    		HttpSession session = request.getSession(false);
+
+    		if (session != null) {
+    			session.invalidate();
+    		}
+    		forwardPath =  "./view/sellingStart.jsp";
+    	} else {
+    		forwardPath = "./view/sellingStart.jsp";
     	}
 
     	RequestDispatcher rd = request.getRequestDispatcher(forwardPath);
@@ -57,11 +71,28 @@ public class sellerDataController extends HttpServlet {
 		String forwardPath = null;
 
 		SellerLogin login = new SellerLogin();
+		SellerSell sell = new SellerSell();
 
 		if (action.equals("LOGIN")) {
 
 			if (login.execute(request, true) == true) {
-				forwardPath = "./view/sellingMyPage.jsp";
+				HttpSession session = request.getSession(true);
+
+				SellerInfo seller = (SellerInfo)session.getAttribute("seller");
+
+				int houseID = seller.getSellingHouseID();
+
+				if ( houseID != 0) {
+					if (sell.getHouseData(request, houseID) == true) {
+		    			forwardPath = "./view/sellingMyPage.jsp";
+					} else {
+						forwardPath = "./view/sellingStart.jsp";
+						System.out.println("売却中の別荘データ取得エラー");
+					}
+				} else {
+					forwardPath = "./view/sellingMyPage.jsp";
+					System.out.println("売却中の別荘はありません");
+	    		}
 			} else {
 				forwardPath = "./view/sellingStart.jsp";
 				System.out.println("ログインエラー");
@@ -74,6 +105,27 @@ public class sellerDataController extends HttpServlet {
 			} else {
 				forwardPath = "./view/sellingStart.jsp";
 				System.out.println("新規登録エラー");
+			}
+		} else if (action.equals("SELL")) {
+
+			if (sell.execute(request) == true) {
+				forwardPath = "./view/sellingNotificationPage.jsp";
+			} else {
+				forwardPath = "./view/sellingMyPage.jsp";
+				System.out.println("売り出しエラー");
+			}
+		} else if (action.equals("DELETE")) {
+			HttpSession session = request.getSession(true);
+
+			SellerInfo seller = (SellerInfo)session.getAttribute("seller");
+
+			int houseID = seller.getSellingHouseID();
+
+			if (sell.deleteHouseData(request, houseID)) {
+				forwardPath = "./view/sellingNotificationPage.jsp";
+			} else {
+				forwardPath = "./view/sellingMyPage.jsp";
+				System.out.println("物件削除エラー");
 			}
 		} else {
 			System.out.println("ページ移行エラー");

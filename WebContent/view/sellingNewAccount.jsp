@@ -18,7 +18,6 @@
 			<input type="hidden" name="ACTION" value="NEW">
 			ユーザ名  ：<input type="text" name="ID"><br><br>
 			パスワード：<input type="password" name="PW"><br><br>
-
 			<input type="submit" value="新規登録">
 		</form>
 	</div>

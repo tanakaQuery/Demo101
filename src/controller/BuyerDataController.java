@@ -8,8 +8,9 @@ import javax.servlet.annotation.WebServlet;
 import javax.servlet.http.HttpServlet;
 import javax.servlet.http.HttpServletRequest;
 import javax.servlet.http.HttpServletResponse;
+import javax.servlet.http.HttpSession;
 
-import model.SellerLogin;
+import model.BuyerLogin;
 
 /**
  * Servlet implementation class BuyerDataController
@@ -41,7 +42,24 @@ public class BuyerDataController extends HttpServlet {
     	} else if (page.equals("start")) {
     		forwardPath = "./view/buyingStart.jsp";
     	} else if (page.equals("guest")) {
+    		HttpSession session = request.getSession(false);
+
+    		if (session != null) {
+    			session.invalidate();
+    		}
+
+    		BuyerLogin login = new BuyerLogin();
+    		login.fetchHouseData(request);
     		forwardPath = "./view/buyingHome.jsp";
+    	} else if (page.equals("logout")) {
+    		HttpSession session = request.getSession(false);
+
+    		if (session != null) {
+    			session.invalidate();
+    		}
+    		forwardPath =  "./view/buyingStart.jsp";
+    	} else {
+    		forwardPath =  "./view/buyingStart.jsp";
     	}
 
     	RequestDispatcher rd = request.getRequestDispatcher(forwardPath);
@@ -57,12 +75,13 @@ public class BuyerDataController extends HttpServlet {
 
 		String forwardPath = null;
 
-		SellerLogin login = new SellerLogin();
+		BuyerLogin login = new BuyerLogin();
 
 		if (action.equals("LOGIN")) {
 
 			if (login.execute(request, true) == true) {
-				forwardPath = "./view/buyingHoume.jsp";
+				login.fetchHouseData(request);
+				forwardPath = "./view/buyingHome.jsp";
 			} else {
 				forwardPath = "./view/buyingStart.jsp";
 				System.out.println("ログインエラー");
@@ -71,7 +90,8 @@ public class BuyerDataController extends HttpServlet {
 		} else if (action.equals("NEW")) {
 
 			if (login.execute(request, false) == true) {
-				forwardPath = "./view/buyingHoume.jsp";
+				login.fetchHouseData(request);
+				forwardPath = "./view/buyingHome.jsp";
 			} else {
 				forwardPath = "./view/buyingStart.jsp";
 				System.out.println("新規登録エラー");

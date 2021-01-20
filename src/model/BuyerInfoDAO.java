@@ -14,12 +14,12 @@ public class BuyerInfoDAO {
 		this.db = db;
 	}
 
-	public void update(String name, String houseID) throws Exception {
+	public void update(String name, int houseID) throws Exception {
 		String sql = "UPDATE buyers SET houseID = ? WHERE name = ?";
 		Connection con = db.getConnect();
 
 		PreparedStatement stmt = con.prepareStatement(sql);
-		stmt.setString(1, houseID);
+		stmt.setInt(1, houseID);
 		stmt.setString(2, name);
 
 		int count = stmt.executeUpdate();
@@ -34,7 +34,7 @@ public class BuyerInfoDAO {
 		PreparedStatement stmt = con.prepareStatement(sql);
 		stmt.setString(1, name);
 		stmt.setString(2, password);
-		stmt.setString(3, null);
+		stmt.setInt(3, 0);
 
 		int count = stmt.executeUpdate();
 
@@ -54,7 +54,7 @@ public class BuyerInfoDAO {
 		if (rs.next()) {
 			String buyerName = rs.getString("name");
 			String password = rs.getString("password");
-			String houseID = rs.getString("houseID");
+			int houseID = rs.getInt("houseID");
 
 			buyer = new BuyerInfo(buyerName, password, houseID);
 		}

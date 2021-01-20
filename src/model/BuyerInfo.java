@@ -10,13 +10,13 @@ public class BuyerInfo implements Serializable {
 
 	private String name;
 	private String password;
-	private String boughtHouseID;
+	private int boughtHouseID;
 
     public BuyerInfo() {
         super();
     }
 
-    public BuyerInfo(String name, String password, String boughtHouseID) {
+    public BuyerInfo(String name, String password, int boughtHouseID) {
     	this.name = name;
     	this.password = password;
     	this.boughtHouseID = boughtHouseID;
@@ -38,11 +38,11 @@ public class BuyerInfo implements Serializable {
 		this.password = password;
 	}
 
-	public String getBoughtHouseID() {
+	public int getBoughtHouseID() {
 		return boughtHouseID;
 	}
 
-	public void setBoughtHouseID(String boughtHouseID) {
+	public void setBoughtHouseID(int boughtHouseID) {
 		this.boughtHouseID = boughtHouseID;
 	}
 

@@ -44,7 +44,7 @@ public class SellerLogin {
 				dao.make(sellerName, password);
 
 				session = request.getSession(true);
-				SellerInfo seller = new SellerInfo(sellerName, password, null);
+				SellerInfo seller = new SellerInfo(sellerName, password, 0);
 				session.setAttribute("seller", seller);
 				state = true;
 			}
