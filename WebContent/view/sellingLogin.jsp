@@ -13,7 +13,7 @@
 <h1>ログイン画面</h1>
 	<hr>
 	<div>
-		<form action="<%=request.getContextPath()%>/sellerDataController"
+		<form action="<%=request.getContextPath()%>/SellerDataController"
 			method="post">
 			<input type="hidden" name="ACTION" value="LOGIN">
 			ユーザ名  ：<input type="text" name="ID"><br><br>
@@ -23,7 +23,7 @@
 		</form>
 	</div>
 	<hr>
-	<a href="<%=request.getContextPath()%>/sellerDataController?page=start">戻る</a>
+	<a href="<%=request.getContextPath()%>/SellerDataController?page=start">戻る</a>
 
 </body>
 </html>

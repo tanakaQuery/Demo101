@@ -18,14 +18,14 @@ import model.SellerSell;
 /**
  * Servlet implementation class sellerDataController
  */
-@WebServlet("/sellerDataController")
-public class sellerDataController extends HttpServlet {
+@WebServlet("/SellerDataController")
+public class SellerDataController extends HttpServlet {
 	private static final long serialVersionUID = 1L;
 
     /**
      * @see HttpServlet#HttpServlet()
      */
-    public sellerDataController() {
+    public SellerDataController() {
         super();
     }
 

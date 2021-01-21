@@ -9,6 +9,7 @@ SellerInfo seller = (SellerInfo)session.getAttribute("seller");
 SoldHouseInfo house = (SoldHouseInfo)session.getAttribute("house");
 ArrayList<BuyerInfo> buyerArray = (ArrayList<BuyerInfo>)session.getAttribute("buyerArray");
 Boolean pageMode = true;
+Boolean pageModeSecond = false;
 if (seller.getSellingHouseID() != 0) {
 	if (house != null) {
 		pageMode = true;
@@ -17,6 +18,16 @@ if (seller.getSellingHouseID() != 0) {
 	}
 } else {
 	pageMode = false;
+}
+
+if (buyerArray != null) {
+	if (buyerArray.size() != 0) {
+		pageModeSecond = true;
+	} else {
+		pageModeSecond = false;
+	}
+} else {
+	pageModeSecond = false;
 }
 %>
 <!DOCTYPE html>
@@ -32,7 +43,7 @@ if (seller.getSellingHouseID() != 0) {
 <jsp:include page="subViews/header.jsp"></jsp:include>
 <hr>
 <h1><%=seller.getName() %>様のマイページ</h1>
-<a href="<%=request.getContextPath()%>/sellerDataController?page=logout">ログアウト</a>
+<a href="<%=request.getContextPath()%>/SellerDataController?page=logout">ログアウト</a>
 <hr>
 <% if (pageMode) {%>
 	<hr>
@@ -48,15 +59,15 @@ if (seller.getSellingHouseID() != 0) {
 		</div>
 	</div>
 	<hr>
-	<% if (buyerArray.size() != 0) { %>
-		<% for (BuyerInfo buyer : buyerArray) { %>
-			<p>購入希望者名：<%=buyer.getName() %></p>
-		<% } %>
-	<% } else {%>
+		<% if (pageModeSecond) { %>
+			<% for (BuyerInfo buyer : buyerArray) { %>
+				<p>購入希望者名：<%=buyer.getName() %></p>
+			<% } %>
+		<% } else {%>
 		<br>
-	<% } %>
+		<% } %>
 	<div>
-		<form action="<%=request.getContextPath()%>/sellerDataController"
+		<form action="<%=request.getContextPath()%>/SellerDataController"
 			method="post">
 			<input type="hidden" name="ACTION" value="DELETE"> <input
 				type="submit" value="物件削除">
@@ -66,7 +77,7 @@ if (seller.getSellingHouseID() != 0) {
 <p> 新規物件登録</p>
 <hr>
 	<div>
-		<form action="<%=request.getContextPath()%>/sellerDataController"
+		<form action="<%=request.getContextPath()%>/SellerDataController"
 			method="post">
 			<input type="hidden" name="ACTION" value="SELL">
 			名称  ：<input type="text" name="name"><br><br>

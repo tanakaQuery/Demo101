@@ -31,7 +31,7 @@ if (seller.getSellingHouseID() != 0) {
 
 <% } %>
 
-<a href="<%=request.getContextPath()%>/sellerDataController?page=mypage">マイページへ戻る</a>
+<a href="<%=request.getContextPath()%>/SellerDataController?page=mypage">マイページへ戻る</a>
 
 </body>
 </html>
