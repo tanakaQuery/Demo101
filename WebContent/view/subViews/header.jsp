@@ -11,8 +11,8 @@
 	<header>
 		<h1 class="headline">別荘.COM</h1>
 		<ul class="nav-list">
-			<li class="nav-list-item">ホーム</li>
-			<li class="nav-list-item">物件閲覧</li>
+			<li class="nav-list-item"><a href="<%=request.getContextPath()%>/SellerDataController?page=start">売りたい</a></li>
+			<li class="nav-list-item"><a href="<%=request.getContextPath()%>/BuyerDataController?page=start">買いたい</a></li>
 			</ul>
 	</header>
 </body>
