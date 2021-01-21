@@ -25,7 +25,7 @@ public class BuyerInfoDAO {
 
 		ResultSet rs = stmt.executeQuery();
 
-		if (rs.next()) {
+		while (rs.next()) {
 			String buyerName = rs.getString("name");
 			String password = rs.getString("password");
 			int houseID = rs.getInt("houseID");

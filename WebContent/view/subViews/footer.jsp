@@ -9,7 +9,7 @@
 </head>
 <body>
 	<footer>
-		<h2 class="headline">別荘.COM</h2>
+		<h3 class="headline">別荘.COM</h3>
 	</footer>
 </body>
 </html>

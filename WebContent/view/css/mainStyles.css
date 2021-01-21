@@ -22,6 +22,11 @@ h1 {
 	font-size: 50px;
 }
 
+h2 {
+	text-align: center;
+	color: red;
+}
+
 ol {
   list-style-type: none;
   display: inline-block;
@@ -53,6 +58,8 @@ ol {
 	font-size: 20px;
 	margin: 10px 10px;
 	margin-left: 100px;
+	margin-bottom: 30px;
+	margin-top: 25px;
 	cursor: pointer;
 	background-color: #EC524B;
 }
@@ -63,7 +70,7 @@ ol {
 	background-color: #9AD3BC;
 	display: inline-block;
 	width: 300px;
-	height: 350px;
+	height: 400px;
 	text-align: left;
 }
 

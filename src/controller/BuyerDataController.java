@@ -121,7 +121,7 @@ public class BuyerDataController extends HttpServlet {
 			}
 		} else if (action.equals("BUY")) {
 			if (login.setHouseID(request) == true) {
-				forwardPath = "./view/buyingHome.jsp";
+				forwardPath = "./view/buyingNotificationPage.jsp";
 			} else {
 				forwardPath = "./view/buyingHome.jsp";
 				System.out.println("購入検討依頼エラー");

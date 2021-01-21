@@ -8,8 +8,15 @@ BuyerInfo buyer = (BuyerInfo)session.getAttribute("buyer");
 SoldHouseInfo house = (SoldHouseInfo)session.getAttribute("houseDetail");
 
 Boolean pageMode = true;
+Boolean pageModeSecond = false;
+
 if (buyer != null) {
 	pageMode = true;
+	if (buyer.getBoughtHouseID() == house.getId()) {
+		pageModeSecond = true;
+	} else {
+		pageModeSecond = false;
+	}
 } else {
 	pageMode = false;
 }
@@ -39,13 +46,17 @@ ArrayList<SoldHouseInfo> houseArray = (ArrayList<SoldHouseInfo>) session.getAttr
 		</div>
 		<div class="thred-button">
 			<% if (pageMode == true) { %>
-			<div>
-				<form action="<%=request.getContextPath()%>/BuyerDataController"
-					method="post">
-					<input type="hidden" name="ACTION" value="BUY">
-					<input type="submit" value="購入検討依頼">
-				</form>
-			</div>
+				<% if (pageModeSecond == true) { %>
+					<h2>購入検討依頼中</h2>
+				<% } else { %>
+					<div>
+						<form action="<%=request.getContextPath()%>/BuyerDataController"
+							method="post">
+							<input type="hidden" name="ACTION" value="BUY">
+							<input type="submit" value="購入検討依頼">
+						</form>
+					</div>
+				<% } %>
 			<% } else { %>
 			<br>
 			<% } %>

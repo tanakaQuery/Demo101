@@ -61,7 +61,7 @@ if (buyerArray != null) {
 	<hr>
 		<% if (pageModeSecond) { %>
 			<% for (BuyerInfo buyer : buyerArray) { %>
-				<p>購入希望者名：<%=buyer.getName() %></p>
+				<p>購入希望者名：<%=buyer.getName() %>様</p><br>
 			<% } %>
 		<% } else {%>
 		<br>
