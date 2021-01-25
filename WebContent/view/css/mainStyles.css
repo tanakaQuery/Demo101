@@ -16,6 +16,7 @@ img {
 	width: 300px;
 	height: 200px;
 	position: relative;
+	transition: all 500ms 0s ease;
 }
 
 h1 {
@@ -86,4 +87,12 @@ ol {
 	position: relative;
 	display: inline-block;
 	vertical-align: center;
+}
+
+.on {
+	transform: scale(1.8, 1.8) translate(0px, 0px);
+}
+
+.off {
+	transform: scale(1.0, 1.0) translate(0px, 0px);
 }

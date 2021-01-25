@@ -1,0 +1,92 @@
+@charset "UTF-8";
+
+body {
+	margin: 0;
+	text-align: center;
+	background-color: #F3EAC2;
+}
+
+.thred-button {
+	margin: 80px 50px;
+	position: relative;
+	display: inline-block;
+	vertical-align: center;
+}
+
+.m-lens-container {
+	display: inline-block;
+	position: relative;
+}
+
+.m-lens {
+	position: absolute;
+	top: 10px; /* JSで適切な値を設定する */
+	left: 20px; /* JSで適切な値を設定する */
+	z-index: 2;
+	background: #f57716;
+	opacity: 0.3;
+	height: 80px;
+	width: 100px;
+}
+
+.m-lens {
+	display: none;
+}
+
+.m-lens-container:hover .m-lens {
+	display: block;
+}
+
+.m-lens-container img {
+	max-height: 200px;
+	max-width: 300px;
+}
+
+.slides {
+	display: flex;
+	justify-content: space-between; /* 解説用 */
+	width: 700px; /* 解説用 */
+}
+
+.slide {
+	display: table;
+	text-align: center;
+	height: 200px;
+	width: 300px;
+}
+
+.cell {
+	display: table-cell;
+	vertical-align: middle;
+}
+
+.images {
+	position: relative;
+}
+
+.slides-container { /* カルーセル表示領域 */
+	width: 300px;
+	overflow: hidden;
+	text-align: left;
+	margin-left: 30px;
+}
+
+.zoom-area {
+	display: none;
+	position: absolute;
+	top: 0;
+	left: 400px;
+	border: 1px solid #ccc;
+	height: 300px;
+	width: 400px;
+	overflow: hidden;
+}
+
+.zoom-area.active {
+	display: block;
+}
+
+.zoom-area img {
+	margin-top: -30px; /* JSで適切な値を設定する */
+	margin-left: -60px; /* JSで適切な値を設定する */
+}

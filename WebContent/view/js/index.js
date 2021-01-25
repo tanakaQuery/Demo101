@@ -3,18 +3,17 @@
  */
 'use strict';
 
-alert();
-
-const image1 = document.getElementById("image1");
 let stat = false;
 
-function func1() {
-	if(stat) {
-		image1.classList.add("off");
-		image1.classList.remove("on");
+function func1(id) {
+	let imageId = "image" + id
+	let image = document.getElementById(imageId);
+	if (stat) {
+		image.classList.add('off');
+		image.classList.remove('on');
 	} else {
-		image1.classList.add("on");
-		image1.classList.remove("off");
+		image.classList.add('on');
+		image.classList.remove('off');
 	}
 	stat = !stat;
 }
