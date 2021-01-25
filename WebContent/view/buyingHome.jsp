@@ -23,6 +23,18 @@ ArrayList<SoldHouseInfo> houseArray = (ArrayList<SoldHouseInfo>) session.getAttr
 <title>Insert title here</title>
 <link rel="stylesheet" href="./view/css/mainStyles.css">
 <link rel="stylesheet" href="./view/css/headerFooterStyles.css">
+
+	<style type="text/css">
+	#imgae1 {
+		transition: all 500ms 0s ease;
+	}
+	.on {
+		transform: scale(1.5, 1.5) translate(0px, 0px);
+	}
+	.off {
+		transform: scale(1.0, 1.0) translate(0px, 0px);
+	}
+	</style>
 </head>
 <body>
 	<jsp:include page="subViews/header.jsp"></jsp:include>
@@ -42,7 +54,8 @@ ArrayList<SoldHouseInfo> houseArray = (ArrayList<SoldHouseInfo>) session.getAttr
 	<% for (SoldHouseInfo house : houseArray) { %>
 	<hr>
 	<div class="thread">
-		<img alt="写真未登録" src="<%=house.getHouseImage()%>"><br>
+		<button onclick="func1()">拡大</button><br>
+		<img alt="写真未登録" src="<%=house.getHouseImage()%>" id="image1" onclick="func1()" onmouseover="func1()"><br>
 		<div>
 		<% if (houseID == house.getId()) { %>
 			<h2>購入検討依頼中</h2>
@@ -62,5 +75,27 @@ ArrayList<SoldHouseInfo> houseArray = (ArrayList<SoldHouseInfo>) session.getAttr
 	<% } %>
 	<hr>
 	<jsp:include page="subViews/footer.jsp"></jsp:include>
+
+	<script type="text/javascript">
+	alert();
+
+	const image1 = document.getElementById("image1");
+	let stat = false;
+
+	function func1() {
+		if(stat) {
+			image1.classList.add('off');
+			image1.classList.remove('on');
+		} else {
+			image1.classList.add('on');
+			image1.classList.remove('off');
+		}
+		stat = !stat;
+	}
+	</script>
+
+<!--
+<script src="<%=request.getContextPath()%>/view/js/index.js"></script>
+-->
 </body>
 </html>
