@@ -1,8 +1,17 @@
 /**
  *
  */
-'use strict';
 
+$("img").hover(
+	function() {
+		$(this).css("transform", "scale(1.8)");
+	},
+	function() {
+		$(this).css("transform", "scale(1)");
+	}
+)
+
+/*
 let stat = false;
 
 function func1(id) {
@@ -17,4 +26,4 @@ function func1(id) {
 	}
 	stat = !stat;
 }
-
+*/

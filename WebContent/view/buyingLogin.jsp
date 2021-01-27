@@ -7,6 +7,7 @@
 <title>Insert title here</title>
 <link rel="stylesheet" href="./view/css/mainStyles.css">
 <link rel="stylesheet" href="./view/css/headerFooterStyles.css">
+<link rel="stylesheet" href="./view/css/drawer.css">
 </head>
 <body>
 <jsp:include page="subViews/header.jsp"></jsp:include>

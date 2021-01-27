@@ -32,10 +32,13 @@ if (houseArray != null) {
 <title>Insert title here</title>
 <link rel="stylesheet" href="./view/css/mainStyles.css">
 <link rel="stylesheet" href="./view/css/headerFooterStyles.css">
+<link rel="stylesheet" href="./view/css/drawer.css">
 </head>
 <body>
 <jsp:include page="subViews/header.jsp"></jsp:include>
+<jsp:include page="subViews/drawer.jsp"></jsp:include>
 	<hr>
+	<div id="wrapper">
 	<% if (showPage == true) { %>
 	<% if (pageMode == true) { %>
 	<h1><%=buyer.getName()%>様のマイページ</h1>
@@ -49,11 +52,9 @@ if (houseArray != null) {
 	<% int num = 0; %>
 	<h3>全 <%=houseArray.size()%>物件</h3>
 	<% for (SoldHouseInfo house : houseArray) { %>
-	<% num += 1; %>
 	<hr>
 	<div class="thread">
-		<img alt="写真未登録" src="<%=house.getHouseImage()%>" id="image<%=num%>"
-			onmouseover="func1(<%=num%>)" onmouseout="func1(<%=num%>)"><br>
+		<img alt="写真未登録" src="<%=house.getHouseImage()%>"><br>
 		<div>
 			<% if (houseID == house.getId()) { %>
 			<h2>購入検討依頼中</h2>
@@ -74,8 +75,11 @@ if (houseArray != null) {
 	<% } else { %>
 	<h1>売出し中の物件がありません</h1>
 	<% } %>
+	</div>
 	<hr>
 <jsp:include page="subViews/footer.jsp"></jsp:include>
-<script src="<%=request.getContextPath()%>/view/js/index.js"></script>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+<script src="<%=request.getContextPath()%>/view/js/buyingHome.js"></script>
+<script src="<%=request.getContextPath()%>/view/js/drawer.js"></script>
 </body>
 </html>

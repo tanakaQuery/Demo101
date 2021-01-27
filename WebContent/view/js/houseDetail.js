@@ -1,6 +1,3 @@
-/**
- *
- */
 
 (function() {
 	var zoomArea = document.querySelector('.zoom-area');

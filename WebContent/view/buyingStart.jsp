@@ -13,5 +13,6 @@
 	<button class="button mainHtml" onclick="location.href='<%=request.getContextPath()%>/BuyerDataController?page=guest'">ゲスト</button>
 	<button class="button mainHtml" onclick="location.href='<%=request.getContextPath()%>/BuyerDataController?page=login'">ログイン</button>
 	<button class="button mainHtml" onclick="location.href='<%=request.getContextPath()%>/BuyerDataController?page=new'">新規登録</button>
+
 </body>
 </html>

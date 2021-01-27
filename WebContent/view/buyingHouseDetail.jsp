@@ -30,10 +30,13 @@ ArrayList<SoldHouseInfo> houseArray = (ArrayList<SoldHouseInfo>) session.getAttr
 <title>Insert title here</title>
 <link rel="stylesheet" href="./view/css/houseDetail.css">
 <link rel="stylesheet" href="./view/css/headerFooterStyles.css">
+<link rel="stylesheet" href="./view/css/drawer.css">
 </head>
 <body>
 	<jsp:include page="subViews/header.jsp"></jsp:include>
+	<jsp:include page="subViews/drawer.jsp"></jsp:include>
 	<hr>
+	<div id="wrapper">
 	<div class="images">
 		<div class="zoom-area active">
 			<!-- JSでactiveを切り替える -->
@@ -75,8 +78,11 @@ ArrayList<SoldHouseInfo> houseArray = (ArrayList<SoldHouseInfo>) session.getAttr
 	<% } %>
 	<a href="<%=request.getContextPath()%>/BuyerDataController?page=home">物件一覧へ戻る</a>
 	</div>
+	</div>
 <hr>
 <jsp:include page="subViews/footer.jsp"></jsp:include>
+<script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
 <script src="<%=request.getContextPath()%>/view/js/houseDetail.js"></script>
+<script src="<%=request.getContextPath()%>/view/js/drawer.js"></script>
 </body>
 </html>
