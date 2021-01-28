@@ -15,6 +15,31 @@ public class HouseInfoDAO {
 		this.db = db;
 	}
 
+	public ArrayList<InquiryInfo> findAllInquiriesByID(int houseID) throws Exception {
+		String sql = "SELECT * FROM inquiries WHERE houseID = ?";
+
+		ArrayList<InquiryInfo> inquiryArray = new ArrayList<InquiryInfo>();
+
+		Connection con = db.getConnect();
+
+		PreparedStatement stmt = con.prepareStatement(sql);
+		stmt.setInt(1, houseID);
+
+		ResultSet rs = stmt.executeQuery();
+
+		while (rs.next()) {
+			int id = rs.getInt("id");
+			int houseid = rs.getInt("houseID");
+			String buyerName = rs.getString("buyerName");
+
+			InquiryInfo inquiry = new InquiryInfo(id, houseid, buyerName);
+
+			inquiryArray.add(inquiry);
+		}
+
+		return inquiryArray;
+	}
+
 	public ArrayList<InquiryInfo> findAllInquiries(String loginName) throws Exception {
 		String sql = "SELECT * FROM inquiries WHERE buyerName = ?";
 
@@ -81,7 +106,7 @@ public class HouseInfoDAO {
 		System.out.println(count + "件の売り出し別荘情報を登録しました。");
 	}
 
-
+//別荘登録後のIDを登録オーナー名から検索する
 	public SoldHouseInfo find(String ownerName) throws Exception {
 		SoldHouseInfo house = null;
 		String sql = "SELECT id, houseName, housePrice, houseImage FROM houses WHERE ownerName = ?";
@@ -104,6 +129,7 @@ public class HouseInfoDAO {
 
 		return house;
 	}
+
 
 	public SoldHouseInfo findFromID(int houseID) throws Exception {
 		SoldHouseInfo house = null;

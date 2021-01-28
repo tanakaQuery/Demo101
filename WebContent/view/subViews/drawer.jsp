@@ -10,7 +10,6 @@
 <nav id="nav">
 	<div class="nav-menu">
 		<h3>メニュー</h3>
-		<p>購入履歴</p>
 		<p>問い合わせ履歴</p>
 	</div>
 </nav>

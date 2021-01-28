@@ -2,12 +2,12 @@
     pageEncoding="UTF-8"%>
 <%@ page import="model.SellerInfo" %>
 <%@ page import="model.SoldHouseInfo" %>
-<%@ page import="model.BuyerInfo" %>
+<%@ page import="model.InquiryInfo" %>
 <%@ page import="java.util.ArrayList" %>
 <%
 SellerInfo seller = (SellerInfo)session.getAttribute("seller");
 SoldHouseInfo house = (SoldHouseInfo)session.getAttribute("house");
-ArrayList<BuyerInfo> buyerArray = (ArrayList<BuyerInfo>)session.getAttribute("buyerArray");
+ArrayList<InquiryInfo> inquiryArray = (ArrayList<InquiryInfo>)session.getAttribute("inquiry");
 Boolean pageMode = true;
 Boolean pageModeSecond = false;
 if (seller.getSellingHouseID() != 0) {
@@ -20,8 +20,8 @@ if (seller.getSellingHouseID() != 0) {
 	pageMode = false;
 }
 
-if (buyerArray != null) {
-	if (buyerArray.size() != 0) {
+if (inquiryArray != null) {
+	if (inquiryArray.size() != 0) {
 		pageModeSecond = true;
 	} else {
 		pageModeSecond = false;
@@ -60,8 +60,8 @@ if (buyerArray != null) {
 	</div>
 	<hr>
 		<% if (pageModeSecond) { %>
-			<% for (BuyerInfo buyer : buyerArray) { %>
-				<p>購入希望者名：<%=buyer.getName() %>様</p><br>
+			<% for (InquiryInfo inquiry : inquiryArray) { %>
+				<p>購入希望者名：<%=inquiry.getBuyerName() %>様</p><br>
 			<% } %>
 		<% } else {%>
 		<br>

@@ -164,7 +164,7 @@ public class BuyerLogin {
 				dao.make(buyerName, password);
 
 				session = request.getSession(true);
-				BuyerInfo buyer = new BuyerInfo(buyerName, password, 0);
+				BuyerInfo buyer = new BuyerInfo(buyerName, password);
 				session.setAttribute("buyer", buyer);
 				state = true;
 			}

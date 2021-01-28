@@ -42,12 +42,6 @@ body {
 	max-width: 300px;
 }
 
-.slides {
-	display: flex;
-	justify-content: space-between; /* 解説用 */
-	width: 700px; /* 解説用 */
-}
-
 .slide {
 	display: table;
 	text-align: center;

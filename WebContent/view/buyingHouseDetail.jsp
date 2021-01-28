@@ -52,7 +52,7 @@ ArrayList<SoldHouseInfo> houseArray = (ArrayList<SoldHouseInfo>) session.getAttr
 			<img alt="写真未登録" src="<%=house.getHouseImage()%>">
 		</div>
 		<div class="slides-container">
-			<ul class="slides">
+			<ul>
 				<li class="slide">
 					<div class="cell">
 						<div class="m-lens-container">

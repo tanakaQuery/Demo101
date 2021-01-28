@@ -70,7 +70,7 @@ if (houseArray != null) {
 			<% if (houseID.size() != 0) { %>
 				<% for ( int id : houseID) { %>
 					<% if ( id == house.getId()) { %>
-						<h2 id="styleA">購入検討依頼中</h2>
+						<h2 class="styleA">購入検討依頼中</h2>
 					<% } else if ( id == 0) {%>
 						<br>
 					<% } %>
