@@ -2,23 +2,34 @@
 	pageEncoding="UTF-8"%>
 <%@ page import="model.BuyerInfo"%>
 <%@ page import="model.SoldHouseInfo"%>
+<%@ page import="model.InquiryInfo"%>
 <%@ page import="java.util.ArrayList"%>
 <%
 BuyerInfo buyer = (BuyerInfo) session.getAttribute("buyer");
 ArrayList<SoldHouseInfo> houseArray = (ArrayList<SoldHouseInfo>) session.getAttribute("houseArray");
+ArrayList<InquiryInfo> inquiryArray = (ArrayList<InquiryInfo>) session.getAttribute("inquiryArray");
 
 Boolean showPage = true;
 Boolean pageMode = true;
 
-int houseID = 0;
+ArrayList<Integer> houseID = new ArrayList<Integer>();
 int houseCounts = 0;
 
 if (houseArray != null) {
 	houseCounts = houseArray.size();
 	if (buyer != null) {
-		houseID = buyer.getBoughtHouseID();
-		pageMode = true;
+		if (inquiryArray != null) {
+			for ( InquiryInfo inquiry : inquiryArray) {
+				houseID.add(inquiry.getHouseId());
+			}
+			pageMode = true;
+		} else {
+			houseID.add(0);
+			pageMode = true;
+		}
+
 	} else {
+		houseID.add(0);
 		pageMode = false;
 	}
 } else {
@@ -56,8 +67,14 @@ if (houseArray != null) {
 	<div class="thread">
 		<img alt="写真未登録" src="<%=house.getHouseImage()%>"><br>
 		<div>
-			<% if (houseID == house.getId()) { %>
-			<h2>購入検討依頼中</h2>
+			<% if (houseID.size() != 0) { %>
+				<% for ( int id : houseID) { %>
+					<% if ( id == house.getId()) { %>
+						<h2 id="styleA">購入検討依頼中</h2>
+					<% } else if ( id == 0) {%>
+						<br>
+					<% } %>
+				<% } %>
 			<% } %>
 			<ol class="thread-text">
 				<li>ID:<%=house.getId()%></li>

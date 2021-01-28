@@ -15,6 +15,33 @@ public class BuyerInfoDAO {
 		this.db = db;
 	}
 
+	public void removeInquiry(String name, int houseID) throws Exception {
+		String sql = "DELETE FROM inquiries WHERE houseID = ? AND buyerName = ?";
+		Connection con = db.getConnect();
+
+		PreparedStatement stmt = con.prepareStatement(sql);
+		stmt.setInt(1, houseID);
+		stmt.setString(2, name);
+
+		int count = stmt.executeUpdate();
+
+		System.out.println(count + "物件問い合わせデータを削除しました。");
+	}
+
+	public void setInquiry(String name, int houseID) throws Exception {
+		String sql = "INSERT INTO inquiries(houseID, buyerName) VALUES( ?, ? )";
+		Connection con = db.getConnect();
+
+		PreparedStatement stmt = con.prepareStatement(sql);
+		stmt.setInt(1, houseID);
+		stmt.setString(2, name);
+
+		int count = stmt.executeUpdate();
+
+		System.out.println(count + "物件問い合わせデータを登録しました。");
+	}
+
+
 	public ArrayList<BuyerInfo> findBuyerName(int id) throws Exception {
 		ArrayList<BuyerInfo> buyerArray = new ArrayList<BuyerInfo>();
 		String sql = "SELECT name, password, houseID FROM buyers WHERE houseID = ?";

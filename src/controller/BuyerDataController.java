@@ -80,6 +80,8 @@ public class BuyerDataController extends HttpServlet {
     		}
     		forwardPath =  "./view/buyingStart.jsp";
     	} else if (page.equals("home")){
+    		BuyerLogin login = new BuyerLogin();
+    		login.fetchHouseData(request);
     		forwardPath = "./view/buyingHome.jsp";
     	} else {
     		forwardPath =  "./view/buyingStart.jsp";
@@ -125,6 +127,13 @@ public class BuyerDataController extends HttpServlet {
 			} else {
 				forwardPath = "./view/buyingHome.jsp";
 				System.out.println("購入検討依頼エラー");
+			}
+		} else if (action.equals("CANCEL")) {
+			if (login.removeHouseID(request) == true) {
+				forwardPath = "./view/buyingNotificationPage.jsp";
+			} else {
+				forwardPath = "./view/buyingHome.jsp";
+				System.out.println("購入検討取り消しエラー");
 			}
 		} else {
 			System.out.println("ページ移行エラー");

@@ -1,6 +1,5 @@
 package model;
 
-
 import java.util.ArrayList;
 
 import javax.servlet.http.HttpServletRequest;
@@ -11,14 +10,14 @@ import javax.servlet.http.HttpSession;
  */
 public class BuyerLogin {
 
-	public boolean setHouseID(HttpServletRequest request) {
+	public boolean removeHouseID(HttpServletRequest request) {
 		boolean state = false;
 
 		DBConnection db = new DBConnection();
 
 		HttpSession session = request.getSession(true);
-		BuyerInfo buyer = (BuyerInfo)session.getAttribute("buyer");
-		SoldHouseInfo pickedHouse = (SoldHouseInfo)session.getAttribute("houseDetail");
+		BuyerInfo buyer = (BuyerInfo) session.getAttribute("buyer");
+		SoldHouseInfo pickedHouse = (SoldHouseInfo) session.getAttribute("houseDetail");
 
 		try {
 			BuyerInfoDAO buyerDAO = new BuyerInfoDAO(db);
@@ -26,10 +25,11 @@ public class BuyerLogin {
 			if (buyer != null) {
 				String loginName = buyer.getName();
 				int pickedHouseID = pickedHouse.getId();
-				buyerDAO.update(loginName, pickedHouseID);
 
-				buyer.setBoughtHouseID(pickedHouseID);
-				session.setAttribute("buyer", buyer);
+				buyerDAO.removeInquiry(loginName, pickedHouseID);
+
+				session.setAttribute("isSetHouseID", false);
+
 				state = true;
 			} else {
 				state = false;
@@ -44,7 +44,46 @@ public class BuyerLogin {
 				state = false;
 			}
 		}
+		return state;
+	}
 
+
+	public boolean setHouseID(HttpServletRequest request) {
+		boolean state = false;
+
+		DBConnection db = new DBConnection();
+
+		HttpSession session = request.getSession(true);
+		BuyerInfo buyer = (BuyerInfo) session.getAttribute("buyer");
+		SoldHouseInfo pickedHouse = (SoldHouseInfo) session.getAttribute("houseDetail");
+
+		try {
+			BuyerInfoDAO buyerDAO = new BuyerInfoDAO(db);
+
+			if (buyer != null) {
+				String loginName = buyer.getName();
+				int pickedHouseID = pickedHouse.getId();
+				//buyerDAO.update(loginName, pickedHouseID);
+				buyerDAO.setInquiry(loginName, pickedHouseID);
+
+				session.setAttribute("isSetHouseID", true);
+
+				//buyer.setBoughtHouseID(pickedHouseID);
+				//session.setAttribute("buyer", buyer);
+				state = true;
+			} else {
+				state = false;
+			}
+
+		} catch (Exception e) {
+			state = false;
+		} finally {
+			try {
+				db.closeConnect();
+			} catch (Exception e) {
+				state = false;
+			}
+		}
 		return state;
 	}
 
@@ -54,20 +93,24 @@ public class BuyerLogin {
 		DBConnection db = new DBConnection();
 
 		HttpSession session = request.getSession(true);
-		BuyerInfo buyer = (BuyerInfo)session.getAttribute("buyer");
+		BuyerInfo buyer = (BuyerInfo) session.getAttribute("buyer");
 
 		try {
 			HouseInfoDAO houseDAO = new HouseInfoDAO(db);
 			ArrayList<SoldHouseInfo> houseArray;
+			ArrayList<InquiryInfo> inquiryArray;
 
 			if (buyer != null) {
 				String loginName = buyer.getName();
-				houseArray = houseDAO.findAll(loginName);
+				houseArray = houseDAO.findAll();
+				inquiryArray = houseDAO.findAllInquiries(loginName);
 			} else {
 				houseArray = houseDAO.findAll();
+				inquiryArray = null;
 			}
 
 			session.setAttribute("houseArray", houseArray);
+			session.setAttribute("inquiryArray", inquiryArray);
 			state = true;
 
 		} catch (Exception e) {
@@ -82,58 +125,58 @@ public class BuyerLogin {
 		return state;
 	}
 
-public boolean execute(HttpServletRequest request, Boolean isLogin) {
-	boolean state = false;
+	public boolean execute(HttpServletRequest request, Boolean isLogin) {
+		boolean state = false;
 
-	HttpSession session = request.getSession(false);
+		HttpSession session = request.getSession(false);
 
-	if (session != null) {
-		session.invalidate();
-	}
+		if (session != null) {
+			session.invalidate();
+		}
 
-	String buyerName = request.getParameter("ID");
-	String password = request.getParameter("PW");
+		String buyerName = request.getParameter("ID");
+		String password = request.getParameter("PW");
 
-	DBConnection db = new DBConnection();
+		DBConnection db = new DBConnection();
 
-	try {
-		BuyerInfoDAO dao = new BuyerInfoDAO(db);
+		try {
+			BuyerInfoDAO dao = new BuyerInfoDAO(db);
 
-		if (isLogin.equals(true)) {
-			BuyerInfo buyer = dao.find(buyerName);
+			if (isLogin.equals(true)) {
+				BuyerInfo buyer = dao.find(buyerName);
 
-			if (buyer != null)	{
-				String buyerPW = buyer.getPassword();
+				if (buyer != null) {
+					String buyerPW = buyer.getPassword();
 
-				if (buyerPW.equals(password)) {
-					session = request.getSession(true);
-					session.setAttribute("buyer", buyer);
-					state = true;
+					if (buyerPW.equals(password)) {
+						session = request.getSession(true);
+						session.setAttribute("buyer", buyer);
+						state = true;
+					} else {
+						state = false;
+						System.out.println("パスワードが違います");
+					}
 				} else {
 					state = false;
-					System.out.println("パスワードが違います");
+					System.out.println("ログインデータがありません");
 				}
 			} else {
-				state = false;
-				System.out.println("ログインデータがありません");
-			}
-		} else {
-			dao.make(buyerName, password);
+				dao.make(buyerName, password);
 
-			session = request.getSession(true);
-			BuyerInfo buyer = new BuyerInfo(buyerName, password, 0);
-			session.setAttribute("buyer", buyer);
-			state = true;
-		}
-	} catch (Exception e) {
-		state = false;
-	} finally {
-		try {
-			db.closeConnect();
+				session = request.getSession(true);
+				BuyerInfo buyer = new BuyerInfo(buyerName, password, 0);
+				session.setAttribute("buyer", buyer);
+				state = true;
+			}
 		} catch (Exception e) {
 			state = false;
+		} finally {
+			try {
+				db.closeConnect();
+			} catch (Exception e) {
+				state = false;
+			}
 		}
+		return state;
 	}
-	return state;
-}
 }

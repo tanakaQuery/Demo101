@@ -2,18 +2,27 @@
     pageEncoding="UTF-8"%>
 <%@ page import="model.BuyerInfo"%>
 <%@ page import="model.SoldHouseInfo"%>
+<%@ page import="model.InquiryInfo"%>
 <%@ page import="java.util.ArrayList"%>
 <%
 BuyerInfo buyer = (BuyerInfo)session.getAttribute("buyer");
 SoldHouseInfo house = (SoldHouseInfo)session.getAttribute("houseDetail");
+ArrayList<InquiryInfo> inquiryArray = (ArrayList<InquiryInfo>) session.getAttribute("inquiryArray");
 
 Boolean pageMode = true;
 Boolean pageModeSecond = false;
 
 if (buyer != null) {
 	pageMode = true;
-	if (buyer.getBoughtHouseID() == house.getId()) {
-		pageModeSecond = true;
+	if (inquiryArray != null) {
+		for ( InquiryInfo inquiry : inquiryArray) {
+			if (inquiry.getHouseId() == house.getId()) {
+				pageModeSecond = true;
+				break;
+			} else {
+				pageModeSecond = false;
+			}
+		}
 	} else {
 		pageModeSecond = false;
 	}
@@ -65,6 +74,12 @@ ArrayList<SoldHouseInfo> houseArray = (ArrayList<SoldHouseInfo>) session.getAttr
 	<% if (pageMode == true) { %>
 		<% if (pageModeSecond == true) { %>
 		<h2>購入検討依頼中</h2>
+		<div>
+			<form action="<%=request.getContextPath()%>/BuyerDataController" method="post">
+				<input type="hidden" name="ACTION" value="CANCEL">
+				<input type="submit" value="購入検討依頼取り消し">
+			</form>
+		</div>
 		<% } else { %>
 		<div>
 			<form action="<%=request.getContextPath()%>/BuyerDataController" method="post">
