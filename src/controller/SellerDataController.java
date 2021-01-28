@@ -94,7 +94,8 @@ public class SellerDataController extends HttpServlet {
 					System.out.println("売却中の別荘はありません");
 	    		}
 			} else {
-				forwardPath = "./view/sellingStart.jsp";
+				request.setAttribute("errorLog", "ユーザー名もしくはパスワードが違います");
+				forwardPath = "./view/sellingLogin.jsp";
 				System.out.println("ログインエラー");
 			}
 
@@ -103,7 +104,8 @@ public class SellerDataController extends HttpServlet {
 			if (login.execute(request, false) == true) {
 				forwardPath = "./view/sellingMyPage.jsp";
 			} else {
-				forwardPath = "./view/sellingStart.jsp";
+				request.setAttribute("errorLog", "入力したユーザー名はすでに使われております");
+				forwardPath = "./view/sellingNewAccount.jsp";
 				System.out.println("新規登録エラー");
 			}
 		} else if (action.equals("SELL")) {

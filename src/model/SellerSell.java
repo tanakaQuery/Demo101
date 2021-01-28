@@ -65,13 +65,12 @@ public class SellerSell {
 
 		try {
 			HouseInfoDAO houseDAO = new HouseInfoDAO(db);
-			BuyerInfoDAO buyerDAO = new BuyerInfoDAO(db);
 
 			SoldHouseInfo house = houseDAO.findFromID(houseID);
-			ArrayList<BuyerInfo> buyerArray = buyerDAO.findBuyerName(houseID);
+			ArrayList<InquiryInfo> inquiryArray = houseDAO.findAllInquiriesByID(houseID);
 
 			session.setAttribute("house", house);
-			session.setAttribute("buyerArray", buyerArray);
+			session.setAttribute("inquiry", inquiryArray);
 
 			state = true;
 
@@ -99,10 +98,12 @@ public class SellerSell {
 		String ownerName = seller.getName();
 
 		try {
+			BuyerInfoDAO buyerDAO = new BuyerInfoDAO(db);
 			SellerInfoDAO sellerDAO = new SellerInfoDAO(db);
 			HouseInfoDAO houseDAO = new HouseInfoDAO(db);
 
 			houseDAO.delete(houseID);
+			buyerDAO.removeInquiryByHouseID(houseID);
 
 			sellerDAO.update(ownerName, 0);
 

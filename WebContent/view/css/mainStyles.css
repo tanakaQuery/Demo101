@@ -24,7 +24,7 @@ h1 {
 	font-style: italic;
 }
 
-#styleA {
+.styleA {
 	float: center;
 	text-align: center;
 	color: red;

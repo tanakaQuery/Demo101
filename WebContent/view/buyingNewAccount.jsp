@@ -1,5 +1,14 @@
 <%@ page language="java" contentType="text/html; charset=UTF-8"
     pageEncoding="UTF-8"%>
+<%
+String errorLog = (String)request.getAttribute("errorLog");
+Boolean pageMode = false;
+if ( errorLog != null) {
+	pageMode = true;
+} else {
+	pageMode = false;
+}
+%>
 <!DOCTYPE html>
 <html>
 <head>
@@ -12,6 +21,11 @@
 <jsp:include page="subViews/header.jsp"></jsp:include>
 <h1>新規登録画面</h1>
 	<hr>
+	<% if (pageMode) { %>
+	<p class="styleA"><%=errorLog %></p>
+	<% } else { %>
+	<br>
+	<% } %>
 	<div>
 		<form action="<%=request.getContextPath()%>/BuyerDataController"
 			method="post">

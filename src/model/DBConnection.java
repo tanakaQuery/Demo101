@@ -9,8 +9,8 @@ import java.sql.DriverManager;
 
 public class DBConnection {
 	private static final String DRIVER_NAME = "com.mysql.jdbc.Driver";
-	private static final String CONNECT_URL = "jdbc:mysql://localhost/demo101";
-	//private static final String CONNECT_URL = "jdbc:mysql://localhost:3308/demo101";
+	//private static final String CONNECT_URL = "jdbc:mysql://localhost/demo101";
+	private static final String CONNECT_URL = "jdbc:mysql://localhost:3308/demo101";
 	private static final String USER_NAME = "root";
 	private static final String PASSWORD = "root";
 	private Connection con;

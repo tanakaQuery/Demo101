@@ -108,7 +108,8 @@ public class BuyerDataController extends HttpServlet {
 				login.fetchHouseData(request);
 				forwardPath = "./view/buyingHome.jsp";
 			} else {
-				forwardPath = "./view/buyingStart.jsp";
+				request.setAttribute("errorLog", "ユーザー名もしくはパスワードが違います");
+				forwardPath = "./view/buyingLogin.jsp";
 				System.out.println("ログインエラー");
 			}
 
@@ -118,7 +119,8 @@ public class BuyerDataController extends HttpServlet {
 				login.fetchHouseData(request);
 				forwardPath = "./view/buyingHome.jsp";
 			} else {
-				forwardPath = "./view/buyingStart.jsp";
+				request.setAttribute("errorLog", "入力したユーザー名はすでに使われております");
+				forwardPath = "./view/buyingNewAccount.jsp";
 				System.out.println("新規登録エラー");
 			}
 		} else if (action.equals("BUY")) {
