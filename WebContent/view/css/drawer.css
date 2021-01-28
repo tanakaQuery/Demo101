@@ -1,0 +1,85 @@
+@charset "UTF-8";
+
+.nav-menu {
+	margin-top: 30px;
+}
+
+.nav-menu p{
+	margin: 30px 30px;
+}
+
+#nav {
+	position: fixed;
+	right: -270px;
+	top: 100;
+	width: 270px;
+	height: 100%;
+	float: top;
+}
+
+.show {
+	transform: translate3d(-270px, 0, 0);
+}
+
+#wrapper, #nav {
+	transition: transform 0.3s;
+}
+
+
+#menu-button {
+	background-color:  #F5B461;
+	border: none;
+	outline: none;
+	float: right;
+	margin-right: 30px;
+	margin-top:25px;
+}
+
+
+.menu-trigger,
+.menu-trigger span {
+  display: inline-block;
+  transition: all .4s;
+  box-sizing: border-box;
+}
+.menu-trigger {
+  position: relative;
+  width: 50px;
+  height: 44px;
+}
+.menu-trigger span {
+  position: absolute;
+  left: 0;
+  width: 100%;
+  height: 4px;
+  background-color: white;
+  border-radius: 4px;
+}
+
+.menu-trigger span:nth-of-type(1) {
+  top: 0;
+}
+
+.menu-trigger span:nth-of-type(2) {
+  top: 50%;
+  left: 50%;
+  transform: translate3d(-50%, -50%, 0);
+}
+
+.menu-trigger span:nth-of-type(3) {
+  bottom: 0;
+}
+
+.menu-trigger.active span:nth-of-type(1) {
+  transform: translateY(20px) rotate(-315deg) scale(.8);
+}
+.menu-trigger.active span:nth-of-type(2) {
+  width: 60px;
+  height: 60px;
+  background-color: transparent;
+  border: 3px solid #fff;
+  border-radius: 50%;
+}
+.menu-trigger.active span:nth-of-type(3) {
+  transform: translateY(-20px) rotate(315deg) scale(.8);
+}

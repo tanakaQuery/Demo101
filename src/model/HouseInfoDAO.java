@@ -15,10 +15,10 @@ public class HouseInfoDAO {
 		this.db = db;
 	}
 
-	public ArrayList<SoldHouseInfo> findAll(String loginName) throws Exception {
-		String sql = "SELECT * FROM houses WHERE houseName NOT IN ( ? )";
+	public ArrayList<InquiryInfo> findAllInquiries(String loginName) throws Exception {
+		String sql = "SELECT * FROM inquiries WHERE buyerName = ?";
 
-		ArrayList<SoldHouseInfo> houseArray = new ArrayList<SoldHouseInfo>();
+		ArrayList<InquiryInfo> inquiryArray = new ArrayList<InquiryInfo>();
 
 		Connection con = db.getConnect();
 
@@ -29,17 +29,15 @@ public class HouseInfoDAO {
 
 		while (rs.next()) {
 			int id = rs.getInt("id");
-			String houseName = rs.getString("houseName");
-			String housePrice = rs.getString("housePrice");
-			String houseImage = rs.getString("houseImage");
-			String ownerName = rs.getString("ownerName");
+			int houseID = rs.getInt("houseID");
+			String buyerName = rs.getString("buyerName");
 
-			SoldHouseInfo house = new SoldHouseInfo(id, houseName, housePrice, houseImage, ownerName);
+			InquiryInfo inquiry = new InquiryInfo(id, houseID, buyerName);
 
-			houseArray.add(house);
+			inquiryArray.add(inquiry);
 		}
 
-		return houseArray;
+		return inquiryArray;
 	}
 
 	public ArrayList<SoldHouseInfo> findAll() throws Exception {

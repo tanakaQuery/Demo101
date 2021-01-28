@@ -13,7 +13,12 @@
 		<ul class="nav-list">
 			<li class="nav-list-item"><a href="<%=request.getContextPath()%>/SellerDataController?page=start">売りたい</a></li>
 			<li class="nav-list-item"><a href="<%=request.getContextPath()%>/BuyerDataController?page=start">買いたい</a></li>
-			</ul>
+		</ul>
+		<button class="menu-trigger" id="menu-button">
+			<span></span>
+			<span></span>
+			<span></span>
+		</button>
 	</header>
 </body>
 </html>
